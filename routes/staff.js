@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const tasksController = require("../controllers/tasks");
+const tasksController = require("../controllers/staff");
 const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, tasksController.getStaff)

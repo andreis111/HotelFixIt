@@ -2,17 +2,8 @@ const Task = require("../models/Task");
 const Admin = require("../models/Admin");
 
 module.exports = {
-  getTasks: async (req, res) => {
-    try {
-      const task = await Task.findById(req.params.id);
-      console.log(task);
-      res.render("task.ejs", {
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  },
 
+          //ADMIN MAIN PAGE
   getStaff: async (req, res) => {
     try {
       const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc" });
@@ -25,6 +16,21 @@ module.exports = {
     }
   },
 
+
+        //TASKS CONTROLLERS
+  getTasks: async (req, res) => {
+    try {
+      const task = await Task.findById(req.params.id);
+      console.log(task);
+      res.render("task.ejs", {
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  
+        //MARK COMPLETE TASKS
   markComplete: async (req, res) => {
     try {
       await Task.findOneAndUpdate(
@@ -40,6 +46,15 @@ module.exports = {
     }
   },
 
+  getCreateTask: async (req, res) => {
+    const admin = await Admin.findById(req.user.adminId)
+    console.log(admin);
+    try {
+      res.render("createNewTask.ejs", {user: req.user});
+    } catch (err) {
+      console.log(err);
+    }
+  },
   
   createTask: async (req, res)=>{
       try{
@@ -59,13 +74,5 @@ module.exports = {
           console.log(err)
       }
   },
-  getCreateTask: async (req, res) => {
-    const admin = await Admin.findById(req.user.adminId)
-    console.log(admin);
-    try {
-      res.render("createNewTask.ejs", {user: req.user});
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  
 };

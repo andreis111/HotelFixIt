@@ -1,9 +1,9 @@
 <%- include('partials/headerAdmin') -%>
   <div class="container mx-auto">
-
+    <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Staff panel</h2>
     <div class="flex flex-row justify-items-center mt-5">
       <div class="">
-        <h3>Staff List</h3>
+
         <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
           <% for(member of staff) {%>
             <div
@@ -67,10 +67,10 @@
             <div class="mb-6">
               <select name="category" id="category-select" class="bg-gray-700">
                 <option value="">Please choose a category</option>
-                <option value="cleaning">Cleaning</option>
-                <option value="electrician">Electrician</option>
-                <option value="handyman">Handyman</option>
-                <option value="plumber">Plumber</option>
+                <option value="cleaning" class="dark:text-blue-400">Cleaning</option>
+                <option value="electrician" class="dark:text-yellow-400">Electrician</option>
+                <option value="handyman" class="dark:text-green-400">Handyman</option>
+                <option value="plumber" class="dark:text-orange-400">Plumber</option>
               </select>
             </div>
             <button type="submit"

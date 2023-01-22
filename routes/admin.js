@@ -5,10 +5,11 @@ const homeController = require("../controllers/home");
 const adminController = require("../controllers/admin");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
-//Main Routes - simplified for now
+//ADMIN ROUTES
 
 router.get("/", ensureAuth, adminController.getFeed);
 router.get("/staff", adminController.getStaffFeed);
+router.get("/ongoingTasks", adminController.getOngoingTasks);
 router.get("/tasksCompleted", adminController.getTasksCompleted);
 router.post("/createStaff", authController.createStaff);
 router.put("/assignJob/:id", adminController.assignJob);

@@ -40,6 +40,32 @@ module.exports = {
     }
   },
 
+  getOngoingTasks: async (req, res) => {
+    try {
+
+
+
+      //$ne -- 'not equal to'
+      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id }).sort({ importance: 'asc', createdDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
+      console.log(tasks);
+      //show task.importance by string, not number
+      const importanceMap = {
+        1: 'High',
+        2: 'Medium',
+        3: 'Low'
+      }
+      tasks.forEach(task => {
+        task.importance = importanceMap[task.importance];
+      });
+
+      res.render("ongoingTasksAdmin.ejs", { tasks: tasks, user: req.user });
+
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+
   getTasksCompleted: async (req, res) => {
     try {
       const tasks = await Task.find({ completed: true }).sort({ createdDate: 'desc' });

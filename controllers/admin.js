@@ -5,12 +5,21 @@ module.exports = {
 
   getFeed: async (req, res) => {
     try {
-      const tasks = await Task.find({ completedBy: null, adminId: req.user.id }).sort({ createdDate: 'desc' });
+
       const activeStaff = await Staff.find({ active: true, role: 'staff', adminId: req.user.id })
+      const tasks = await Task.find({ completedBy: null, adminId: req.user.id }).sort({ importance: 'asc', createdDate: 'asc' });
+
+      //show task.importance by string, not number
+      const importanceMap = {
+        1: 'High',
+        2: 'Medium',
+        3: 'Low'
+      }
+      tasks.forEach(task => {
+        task.importance = importanceMap[task.importance];
+      });
 
       res.render("adminMainPage.ejs", { tasks: tasks, user: req.user, staff: activeStaff });
-
-
 
     } catch (err) {
       console.log(err);

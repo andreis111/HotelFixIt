@@ -1,70 +1,89 @@
-<%- include('partials/header') -%>
-<div class="container">
-  <a href="/admin" class="col-3 btn btn-primary">Go back</a>
-  <h2>Admin Staff Menu</h2>
-  <div>
-    <h3>New staff account</h3>
-    <div class="row justify-content-center">
-      <section class="col-6 mt-5">
-          <% if (locals.messages.errors) { %>
-              <% messages.errors.forEach( el => { %>
-                  <div class="alert alert-danger"><%= el.msg %></div>
-              <% }) %>    
-          <% } %>
-          <% if (locals.messages.info) { %>
-              <% messages.info.forEach( el => { %>
-                  <div class="alert alert-info"><%= el.msg %></div>
-              <% }) %>    
-          <% } %>
+<%- include('partials/headerAdmin') -%>
+  <div class="container mx-auto">
+
+    <div class="flex flex-row justify-items-center mt-5">
+      <div class="">
+        <h3>Staff List</h3>
+        <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
+          <% for(member of staff) {%>
+            <div
+              class="w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
+              <p
+                class="m-2 rounded-full border border-white py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                Name: <%=member.userName%>
+              </p>
+
+              <p
+                class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                E-mail: <%=member.email%>
+              </p>
+              <p class=" dark:text-white m-2 rounded-full  
+                <% if(member.category === 'cleaning') { %> dark:text-blue-400 
+                <% } else if(member.category === 'electrician') { %>  dark:text-yellow-400
+                <% } else if(member.category === 'handyman') { %> dark:text-green-400
+                <% } else if(member.category === 'plumber') { %> dark:text-orange-400
+                <% } %> 
+                py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
+                Category: <%=member.category%>
+              </p>
+            </div>
+            <% } %>
+        </div>
+      </div>
+
+      <div
+        class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 ">
+        <div class="flex flex-col items-center pb-10 text-white mt-5">
           <form action="/admin/createStaff" method="POST">
-              <div class="mb-3">
-                  <label for="userName" class="form-label">User Name</label>
-                  <input type="text" class="form-control" id="userName" name="userName">
-                </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-              </div>
-              <div class="mb-3">
-                  <label for="confirmPassword" class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
-                </div>
-
-                <label for="category-select">Choose a category:</label>
-
-                <select name="category" id="category-select">
-                <option value="">--Please choose an option--</option>
+            <div class="mb-6">
+              <h2 class="mb-4">Create new staff member</h2>
+              <label for="userName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                name</label>
+              <input type="text" id="userName"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Staff name here" required name="userName">
+            </div>
+            <div class="mb-6">
+              <label for="exampleInputEmail1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staff
+                email</label>
+              <input type="email" id="exampleInputEmail1"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="name@email.com" required name="email">
+            </div>
+            <div class="mb-6">
+              <label for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+              <input type="password" id="password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required name="password">
+            </div>
+            <div class="mb-6">
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                password</label>
+              <input type="password" id="confirmPassword"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required name="confirmPassword">
+            </div>
+            <div class="mb-6">
+              <select name="category" id="category-select" class="bg-gray-700">
+                <option value="">Please choose a category</option>
                 <option value="cleaning">Cleaning</option>
                 <option value="electrician">Electrician</option>
                 <option value="handyman">Handyman</option>
                 <option value="plumber">Plumber</option>
-                  </select>
-            
-   
-      
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-      </section>
-  </div>
+              </select>
+            </div>
+            <button type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 
-  <div class="row mt-5">
-    <h3>Staff List</h3>
-    <ul class="list-unstyled">
-      <% for(var i=0; i<staff.length; i++) {%>
-     <li class="col-6 justify-content-between mt-5">
-      <%= staff[i].userName%>
-     </li>
-   <% } %>
 
-    </ul>
-    <div class="col-6"></div>
-  </div>
- 
-</div>
+          </form>
 
-<%- include('partials/footer') -%>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <%- include('partials/footer') -%>

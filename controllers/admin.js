@@ -3,7 +3,7 @@ const Staff = require("../models/Staff");
 
 module.exports = {
 
-  getFeed: async (req, res) => {
+  getAdminMainPage: async (req, res) => {
     try {
 
       const activeStaff = await Staff.find({ active: true, role: 'staff', adminId: req.user.id })
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
 
-  getStaffFeed: async (req, res) => {
+  getStaff: async (req, res) => {
     try {
       // finding all the staff with the associed id
       const staffMembers = await Staff.find({ adminId: req.user.id });
@@ -47,7 +47,7 @@ module.exports = {
 
       //$ne -- 'not equal to'
       const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id }).sort({ importance: 'asc', createdDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
-      console.log(tasks);
+
       //show task.importance by string, not number
       const importanceMap = {
         1: 'High',
@@ -69,13 +69,10 @@ module.exports = {
   getTasksCompleted: async (req, res) => {
     try {
       const tasks = await Task.find({ completed: true }).sort({ createdDate: 'desc' });
-      console.log(tasks);
       const staff = []
       for (task of tasks) {
-        console.log(task.completedBy);
         staff.push(await Staff.findById(task.completedBy));
       }
-      console.log(staff);
 
       res.render("adminTasksDone.ejs", { tasks: tasks, user: req.user, staff: staff });
 
@@ -84,6 +81,7 @@ module.exports = {
       console.log(err);
     }
   },
+
   assignJob: async (req, res) => {
     try {
       await Task.findOneAndUpdate(
@@ -94,7 +92,7 @@ module.exports = {
         }
       );
       console.log(`Assigned to ${req.body.assign}`);
-      res.redirect(`/admin/`);
+      res.redirect(`/admin`);
     } catch (err) {
       console.log(err);
     }

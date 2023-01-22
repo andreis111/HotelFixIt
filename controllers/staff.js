@@ -3,13 +3,13 @@ const Admin = require("../models/Admin");
 
 module.exports = {
 
-  //ADMIN MAIN PAGE
+  //STAFF MAIN PAGE
   getStaff: async (req, res) => {
     try {
       const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc" });
 
 
-      res.render("profileStaff.ejs", { tasks: tasks, user: req.user })
+      res.render("staffMainPage.ejs", { tasks: tasks, user: req.user })
 
     } catch (err) {
       console.log(err);
@@ -18,11 +18,11 @@ module.exports = {
 
 
   //TASKS CONTROLLERS
-  getTasks: async (req, res) => {
+  getTask: async (req, res) => {
     try {
       const task = await Task.findById(req.params.id);
       console.log(task);
-      res.render("task.ejs", {
+      res.render("taskStaff.ejs", {
       });
     } catch (err) {
       console.log(err);

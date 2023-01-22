@@ -7,8 +7,8 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //ADMIN ROUTES
 
-router.get("/", ensureAuth, adminController.getFeed);
-router.get("/staff", adminController.getStaffFeed);
+router.get("/", ensureAuth, adminController.getAdminMainPage);
+router.get("/staff", adminController.getStaff);
 router.get("/ongoingTasks", adminController.getOngoingTasks);
 router.get("/tasksCompleted", adminController.getTasksCompleted);
 router.post("/createStaff", authController.createStaff);

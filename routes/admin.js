@@ -9,9 +9,15 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get("/", ensureAuth, adminController.getAdminMainPage);
 router.get("/staff", adminController.getStaff);
+
+//tasks routes
 router.get("/ongoingTasks", adminController.getOngoingTasks);
 router.get("/tasksCompleted", adminController.getTasksCompleted);
 router.post("/createStaff", authController.createStaff);
 router.put("/assignJob/:id", adminController.assignJob);
+
+//set active/inactive staffs
+router.put("/staff/setInactive/:id", adminController.setInactive);
+router.put("/staff/setActive/:id", adminController.setActive);
 
 module.exports = router;

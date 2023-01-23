@@ -3,9 +3,10 @@
     <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Staff panel</h2>
     <div class="flex flex-row justify-items-center mt-5">
       <div class="">
-
+        <h2 class="text-center text-xl text-slate-600 mt-10 font-bold">Actives</h2>
         <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
-          <% for(member of staff) {%>
+
+          <% for(member of activeStaff) {%>
             <div
               class="w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
               <p
@@ -26,6 +27,66 @@
                 py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
                 Category: <%=member.category%>
               </p>
+              <div class="flex flex-row justify-center gap-5">
+                <form action="/admin/staff/setInactive/<%=member._id %>?_method=PUT" method="POST">
+                  <button
+                    class="text-white  hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-gray-400 dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+                    data-bs-toggle="tooltip" data-bs-placement="left" title="Set inactive"><i
+                      class="fa-solid fa-ban"></i>
+                  </button>
+                </form>
+                <form action="">
+                  <button
+                    class="text-white  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    data-bs-toggle="tooltip" data-bs-placement="left" title="Delete staff"><i
+                      class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <% } %>
+        </div>
+
+        <h2 class="text-center text-xl text-slate-600 mt-10 font-bold">Inactives</h2>
+        <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
+
+          <% for(member of inactiveStaff) {%>
+            <div
+              class="w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
+              <p
+                class="m-2 rounded-full border border-white py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                Name: <%=member.userName%>
+              </p>
+
+              <p
+                class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                E-mail: <%=member.email%>
+              </p>
+              <p class=" dark:text-white m-2 rounded-full  
+                <% if(member.category === 'cleaning') { %> dark:text-blue-400 
+                <% } else if(member.category === 'electrician') { %>  dark:text-yellow-400
+                <% } else if(member.category === 'handyman') { %> dark:text-green-400
+                <% } else if(member.category === 'plumber') { %> dark:text-orange-400
+                <% } %> 
+                py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
+                Category: <%=member.category%>
+              </p>
+              <div class="flex flex-row justify-center gap-5">
+                <form action="/admin/staff/setActive/<%=member._id %>?_method=PUT" method="POST">
+                  <button
+                    class="text-white  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-green-400 dark:hover:bg-green-600 dark:focus:ring-green-800"
+                    data-bs-toggle="tooltip" data-bs-placement="left" title="Set active"><i
+                      class="fa-solid fa-check"></i>
+                  </button>
+                </form>
+                <form action="">
+                  <button
+                    class="text-white  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    data-bs-toggle="tooltip" data-bs-placement="left" title="Delete staff"><i
+                      class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </div>
             </div>
             <% } %>
         </div>

@@ -3,6 +3,7 @@ const Staff = require("../models/Staff");
 
 module.exports = {
 
+  //ADMIN MAIN PAGE
   getAdminMainPage: async (req, res) => {
     try {
 
@@ -26,20 +27,54 @@ module.exports = {
     }
   },
 
+  //ADMIN --> STAFF controller
   getStaff: async (req, res) => {
     try {
       // finding all the staff with the associed id
-      const staffMembers = await Staff.find({ adminId: req.user.id });
+      const activeStaff = await Staff.find({ active: true, role: 'staff', adminId: req.user.id });
+      const inactiveStaff = await Staff.find({ active: false, role: 'staff', adminId: req.user.id });
 
       // rendering profile page with the data from the DB
 
-      res.render("adminStaffMenu.ejs", { staff: staffMembers });
+      res.render("adminStaffMenu.ejs", { activeStaff: activeStaff, inactiveStaff: inactiveStaff });
 
     } catch (err) {
       console.log(err);
     }
   },
 
+  setInactive: async (req, res) => {
+    try {
+      await Staff.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          active: false
+        }
+      );
+      console.log("Staff set to inactive");
+      res.redirect(`/admin/staff`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  setActive: async (req, res) => {
+    try {
+      await Staff.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          active: true
+        }
+      );
+      console.log("Staff set to active");
+      res.redirect(`/admin/staff`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+
+  // ADMIN --> TASKS controller
   getOngoingTasks: async (req, res) => {
     try {
 

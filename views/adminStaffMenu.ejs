@@ -1,9 +1,9 @@
 <%- include('partials/headerAdmin') -%>
   <div class="container mx-auto">
     <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Staff panel</h2>
-    <div class="flex flex-row justify-items-center mt-5">
+    <div class="md:flex md:flex-row justify-items-center mt-5">
       <div class="">
-        <h2 class="text-center text-xl text-slate-600 mt-10 font-bold">Actives</h2>
+        <h2 class="text-center text-xl text-green-800  font-bold">Actives</h2>
         <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
 
           <% for(member of activeStaff) {%>
@@ -27,7 +27,9 @@
                 py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
                 Category: <%=member.category%>
               </p>
-              <div class="flex flex-row justify-center gap-5">
+
+              <!-- Inactive & delete buttons -->
+              <div class="flex flex-row justify-center gap-5 mb-2">
                 <form action="/admin/staff/setInactive/<%=member._id %>?_method=PUT" method="POST">
                   <button
                     class="text-white  hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-gray-400 dark:hover:bg-gray-600 dark:focus:ring-gray-800"
@@ -47,8 +49,8 @@
             <% } %>
         </div>
 
-        <h2 class="text-center text-xl text-slate-600 mt-10 font-bold">Inactives</h2>
-        <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
+        <h2 class="text-center text-xl text-red-900 mt-10 font-bold">Inactives</h2>
+        <div class="flex flex-row flex-wrap  my-5 w-auto gap-2">
 
           <% for(member of inactiveStaff) {%>
             <div
@@ -71,7 +73,10 @@
                 py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
                 Category: <%=member.category%>
               </p>
-              <div class="flex flex-row justify-center gap-5">
+
+
+              <!-- Active & delete buttons -->
+              <div class="flex flex-row justify-center gap-5 mb-2">
                 <form action="/admin/staff/setActive/<%=member._id %>?_method=PUT" method="POST">
                   <button
                     class="text-white  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1.5 text-center dark:bg-green-400 dark:hover:bg-green-600 dark:focus:ring-green-800"

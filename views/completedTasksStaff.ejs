@@ -1,0 +1,41 @@
+<%- include('partials/headerStaff') -%>
+    <main class="container mx-auto">
+
+        <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Tasks completed</h2>
+
+        <div class="flex flex-row flex-wrap  mt-5 w-auto">
+            <% for(task of tasks) {%>
+                <div
+                    class="w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
+                    <p
+                        class="m-2 rounded-full border border-white py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                        Title: <%=task.title%>
+                    </p>
+
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Description: <%=task.description%>
+                    </p>
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Location: <%=task.location%>
+                    </p>
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Importance: <%=task.importance%>
+                    </p>
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Created: <%=task.createdDate.toLocaleDateString()%> -
+                            <%=task.createdDate.toLocaleTimeString()%>
+                    </p>
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Assigned: <%=task.assignedDate.toLocaleDateString()%> -
+                            <%=task.assignedDate.toLocaleTimeString()%>
+                    </p>
+                    <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                        Completed: <%=task.completedDate.toLocaleDateString()%> -
+                            <%=task.completedDate.toLocaleTimeString()%>
+                    </p>
+                </div>
+                <% } %>
+        </div>
+    </main>
+
+    <%- include('partials/footer') -%>

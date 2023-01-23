@@ -16,7 +16,17 @@ module.exports = {
     }
   },
 
+  getCompleted: async (req, res) => {
+    try {
+      const tasks = await Task.find({ completedBy: req.user.id, completed: true }).sort({ createdAt: "asc" });
 
+
+      res.render("completedTasksStaff.ejs", { tasks: tasks, user: req.user, success_msg: '' })
+
+    } catch (err) {
+      console.log(err);
+    }
+  },
   //MARK COMPLETE TASKS
   markComplete: async (req, res) => {
     try {
@@ -29,15 +39,6 @@ module.exports = {
       );
       console.log("Marked Complete");
       res.redirect(`/staff/`);
-    } catch (err) {
-      console.log(err);
-    }
-  },
-
-  getCreateTask: async (req, res) => {
-
-    try {
-      res.render("createNewTask.ejs", { success_msg: '', user: req.user });;
     } catch (err) {
       console.log(err);
     }

@@ -3,8 +3,9 @@ const router = express.Router();
 const tasksController = require("../controllers/staff");
 const { ensureAuth } = require('../middleware/auth')
 
-router.get("/createNewTask", tasksController.getCreateTask);
+
 router.get('/', ensureAuth, tasksController.getStaff)
+router.get('/tasksCompleted', ensureAuth, tasksController.getCompleted)
 
 router.post("/createNewTask/", tasksController.createTask);
 

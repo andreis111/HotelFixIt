@@ -145,4 +145,15 @@ module.exports = {
       console.log(err);
     }
   },
+
+  deleteTask: async (req, res) => {
+    try {
+      await Task.deleteOne({ _id: req.params.id })
+      console.log("Task deleted");
+      res.redirect("/admin/")
+    } catch (err) {
+      console.log(err);
+      res.redirect("/admin/");
+    }
+  },
 };

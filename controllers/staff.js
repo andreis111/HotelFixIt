@@ -19,7 +19,14 @@ module.exports = {
   getCompleted: async (req, res) => {
     try {
       const tasks = await Task.find({ completedBy: req.user.id, completed: true }).sort({ createdAt: "asc" });
-
+      const importanceMap = {
+        1: 'High',
+        2: 'Medium',
+        3: 'Low'
+      }
+      tasks.forEach(task => {
+        task.importance = importanceMap[task.importance];
+      });
 
       res.render("completedTasksStaff.ejs", { tasks: tasks, user: req.user, success_msg: '' })
 

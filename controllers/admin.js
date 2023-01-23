@@ -81,7 +81,7 @@ module.exports = {
 
 
       //$ne -- 'not equal to'
-      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id, completed: false }).sort({ importance: 'asc', assignedDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
+      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id, completed: false }).sort({ importance: 'asc', assignedDate: 'asc' }).populate({ path: 'completedBy', options: { sort: { createdDate: 'desc' } } });
       //show task.importance by string, not number
       const importanceMap = {
         1: 'High',

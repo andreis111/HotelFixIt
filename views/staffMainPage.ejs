@@ -1,30 +1,116 @@
-<%- include('partials/header') -%>
-<div class="container">
-  <h1>staff profile</h1>
-  <div>
-    <p><strong>User Name</strong>: <%= user.userName %></p>
-    <p><strong>Email</strong>: <%= user.email %></p>
-    <a href="/staff/createNewTask/" class="col-3 btn btn-primary">Create new TASK</a>
+<%- include('partials/headerStaff') -%>
 
-    <h3>Not completed:</h3>
-    <% for(task of tasks) {%>
-      <% if (!task.completed){ %>
-      <li class="col-6 justify-content-between mt-5">
-       <a href="/staff/task/<%=task._id%>"> <%= task.title%> - <%= task.importance%></a>
-      </li>
-      <% } %>
-    <% } %>
 
-    <h3>Completed:</h3>
-    <% for(task of tasks) {%>
-      <% if (task.completed){ %>
-      <li class="col-6 justify-content-between mt-5">
-       <a href="/staff/task/<%=task._id%>"> <%= task.title%> - <%= task.importance%></a>
-      </li>
-      <% } %>
-    <% } %>
+  <div class="container mx-auto">
+    <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Staff panel</h2>
+    <div class="md:flex md:flex-row justify-around mt-5 gap-5">
+      <div class="">
+        <div class="flex flex-row flex-wrap w-auto gap-2">
+          <% for(task of tasks) {%>
 
-    <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-</div>
-  </div>
-<%- include('partials/footer') -%>
+            <div
+              class="  w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
+              <p
+                class="m-2 rounded-full border border-white py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+                Title: <%=task.title%>
+              </p>
+
+              <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                Description: <%=task.description%>
+              </p>
+              <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                Location: <%=task.location%>
+              </p>
+              <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                Importance: <%=task.importance%>
+              </p>
+              <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                Created: <%=task.createdDate.toLocaleDateString()%> -
+                  <%=task.createdDate.toLocaleTimeString()%>
+              </p>
+              <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+                Assigned: <%=task.assignedDate.toLocaleDateString()%> -
+                  <%=task.assignedDate.toLocaleTimeString()%>
+              </p>
+
+              <form action="/staff/task/markComplete/<%=task._id %>?_method=PUT" method="POST">
+                <button
+                  class="text-white  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-3 py-1.5 text-center dark:bg-green-400 dark:hover:bg-green-600 dark:focus:ring-green-800"
+                  data-bs-toggle="tooltip" data-bs-placement="left" title="Mark as completed"><i
+                    class="fa-solid fa-check"></i>
+                </button>
+              </form>
+
+            </div>
+
+            <% } %>
+        </div>
+
+      </div>
+
+      <div
+        class="w-full h-fit max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 ">
+        <div class="flex flex-col items-center pb-10 text-white mt-5">
+
+          <!-- SUCCESS MESSAGE when adding a task -->
+          <% if (success_msg) { %>
+            <div class="bg-green-200 w-fit text-center text-black">
+              <%= success_msg %>
+            </div>
+            <% } %>
+              <form action="/staff/createNewTask/" method="POST">
+                <div class="mb-6 ">
+                  <h2 class="mb-4">Create new task</h2>
+                  <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
+                    title</label>
+                  <input type="text" id="title"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Sugestive title here" required name="title">
+                </div>
+                <div class="mb-6">
+                  <label for="description"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                  <input type="text" id="description"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Describe the problem" required name="description">
+                </div>
+                <div class="mb-6">
+                  <label for="location"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                  <input type="text" id="location"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Where is it?" required name="location">
+                </div>
+
+                <div class="mb-6">
+                  <select name="importance" id="importance-select" class="bg-gray-700" required>
+                    <option value="">Choose importance</option>
+                    <option value="1">High</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Low</option>
+
+                  </select>
+                </div>
+
+                <div class="mb-6">
+                  <select name="category" id="category-select" class="bg-gray-700" required>
+                    <option value="">Please choose a category</option>
+                    <option value="cleaning" class="dark:text-blue-400">Cleaning</option>
+                    <option value="electrician" class="dark:text-yellow-400">Electrician</option>
+                    <option value="handyman" class="dark:text-green-400">Handyman</option>
+                    <option value="plumber" class="dark:text-orange-400">Plumber</option>
+                  </select>
+                </div>
+                <button type="submit"
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+
+              </form>
+
+        </div>
+      </div>
+
+
+
+    </div>
+    <%- include('partials/footer') -%>

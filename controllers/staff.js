@@ -6,24 +6,11 @@ module.exports = {
   //STAFF MAIN PAGE
   getStaff: async (req, res) => {
     try {
-      const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc" });
+      const tasks = await Task.find({ completedBy: req.user.id, completed: false }).sort({ createdAt: "asc" });
 
 
-      res.render("staffMainPage.ejs", { tasks: tasks, user: req.user })
+      res.render("staffMainPage.ejs", { tasks: tasks, user: req.user, success_msg: '' })
 
-    } catch (err) {
-      console.log(err);
-    }
-  },
-
-
-  //TASKS CONTROLLERS
-  getTask: async (req, res) => {
-    try {
-      const task = await Task.findById(req.params.id);
-      console.log(task);
-      res.render("taskStaff.ejs", {
-      });
     } catch (err) {
       console.log(err);
     }
@@ -48,16 +35,16 @@ module.exports = {
   },
 
   getCreateTask: async (req, res) => {
-    const admin = await Admin.findById(req.user.adminId)
-    console.log(admin);
+
     try {
-      res.render("createNewTask.ejs", { user: req.user });
+      res.render("createNewTask.ejs", { success_msg: '', user: req.user });;
     } catch (err) {
       console.log(err);
     }
   },
 
   createTask: async (req, res) => {
+    const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc" });
     try {
       await Task.create({
         title: req.body.title,
@@ -70,7 +57,7 @@ module.exports = {
         adminId: req.user.adminId
       })
       console.log('Task has been added!')
-      res.redirect('/staff/')
+      res.render('staffMainPage.ejs', { success_msg: 'Task has been added!', user: req.user, tasks: tasks })
     } catch (err) {
       console.log(err)
     }

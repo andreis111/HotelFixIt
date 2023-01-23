@@ -46,8 +46,7 @@ module.exports = {
 
 
       //$ne -- 'not equal to'
-      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id }).sort({ importance: 'asc', createdDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
-
+      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id, completed: false }).sort({ importance: 'asc', assignedDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
       //show task.importance by string, not number
       const importanceMap = {
         1: 'High',
@@ -68,14 +67,19 @@ module.exports = {
 
   getTasksCompleted: async (req, res) => {
     try {
-      const tasks = await Task.find({ completed: true }).sort({ createdDate: 'desc' });
-      const staff = []
-      for (task of tasks) {
-        staff.push(await Staff.findById(task.completedBy));
+      //$ne -- 'not equal to'
+      const tasks = await Task.find({ completedBy: { $ne: null }, adminId: req.user.id, completed: true }).sort({ importance: 'asc', assignedDate: 'asc' }).populate({ path: 'completedBy', match: { active: true }, options: { sort: { createdDate: 'desc' } } });
+      //show task.importance by string, not number
+      const importanceMap = {
+        1: 'High',
+        2: 'Medium',
+        3: 'Low'
       }
+      tasks.forEach(task => {
+        task.importance = importanceMap[task.importance];
+      });
 
-      res.render("adminTasksDone.ejs", { tasks: tasks, user: req.user, staff: staff });
-
+      res.render("adminTasksDone.ejs", { tasks: tasks, user: req.user });
 
     } catch (err) {
       console.log(err);

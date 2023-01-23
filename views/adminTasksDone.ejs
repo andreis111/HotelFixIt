@@ -1,55 +1,53 @@
 <%- include('partials/headerAdmin') -%>
-  <div class="container">
-    <div class="row">
-      <div class="col-10">
-        <a href="/admin/staff" class="col-3 btn btn-primary">Staff menu</a>
-        <a href="/admin" class="col-3 btn btn-primary">Tasks not completed </a>
-        <div>
-          <h1>admin profile</h1>
-          <p><strong>User Name</strong>: <%= user.userName %>
+  <main class="container mx-auto">
+
+    <h2 class="text-center text-3xl text-slate-600 mt-10 font-bold">Tasks completed</h2>
+
+    <div class="flex flex-row flex-wrap  mt-5 w-auto gap-2">
+      <% for(task of tasks) {%>
+        <div
+          class="w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-900 dark:border-gray-500 hover:bg-gray-800 ">
+          <p
+            class="m-2 rounded-full border border-white py-1 px-3 text-sm font-semibold dark:text-white w-fit text-center mx-auto mb-3">
+            Title: <%=task.title%>
           </p>
-          <p><strong>Email</strong>: <%= user.email %>
+
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Description: <%=task.description%>
           </p>
-          <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Location: <%=task.location%>
+          </p>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Importance: <%=task.importance%>
+          </p>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Created: <%=task.createdDate.toLocaleDateString()%> -
+              <%=task.createdDate.toLocaleTimeString()%>
+          </p>
+          <p class=" dark:text-white m-2 rounded-full  
+                    <% if(task.category === 'cleaning') { %> dark:text-blue-400 
+                    <% } else if(task.category === 'electrician') { %>  dark:text-yellow-400
+                    <% } else if(task.category === 'handyman') { %> dark:text-green-400
+                    <% } else if(task.category === 'plumber') { %> dark:text-orange-400
+                    <% } %> 
+                    py-1 px-3 text-sm font-semibold w-fit text-center mx-auto">
+            Category: <%=task.category%>
+          </p>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Assigned to: <%=task.completedBy.userName%>
+          </p>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Assigned: <%=task.assignedDate.toLocaleDateString()%> -
+              <%=task.assignedDate.toLocaleTimeString()%>
+          </p>
+          <p class="m-2 rounded-full  py-1 px-3 text-sm font-semibold dark:text-white w-fit mx-auto mb-3">
+            Completed: <%=task.completedDate.toLocaleDateString()%> -
+              <%=task.completedDate.toLocaleTimeString()%>
+          </p>
         </div>
-
-      </div>
-
+        <% } %>
     </div>
-
-    <h2 class="text-primary mt-4">TASKS DONE</h2>
-    <div class="col-6">
-
-
-      <!-- Loop going through tasks collection-->
-      <ul class="row list-unstyled">
-        <% for(task of tasks) {%>
-
-          <!-- li with task info -->
-          <li class="col-6 justify-content-between">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-title  text-center"> Title: <%=task.title%>
-                </p>
-                <p class="card-text"> Description: <%=task.description%>
-                </p>
-                <p class="card-text"> Done date: <%=task.doneDate%>
-                </p>
-
-                <% for(member of staff) {%>
-                  <% if(task.completedBy==member.id) {%>
-                    <p class="card-text"> Completed by: <%=member.userName%>
-                    </p>
-                    <% } %>
-                      <% } %>
-
-              </div> <!-- End of div card-body -->
-            </div> <!-- End of div card -->
-          </li>
-          <% } %> <!-- End of task of tasks loop -->
-
-      </ul>
-    </div> <!-- End of col-6 -->
-  </div> <!-- End of container class -->
+  </main>
 
   <%- include('partials/footer') -%>

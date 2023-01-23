@@ -21,6 +21,6 @@ router.put("/staff/setInactive/:id", adminController.setInactive);
 router.put("/staff/setActive/:id", adminController.setActive);
 
 // delete staff
-router.delete("/staff/deleteStaff/:id", adminController.deleteStaff);
+// router.delete("/staff/deleteStaff/:id", adminController.deleteStaff);
 
 module.exports = router;

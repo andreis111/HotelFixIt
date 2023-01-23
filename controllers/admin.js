@@ -72,16 +72,16 @@ module.exports = {
       console.log(err);
     }
   },
-  deleteStaff: async (req, res) => {
-    try {
-      await Staff.deleteOne({ _id: req.params.id })
-      console.log("staff deleted");
-      res.redirect("/admin/staff")
-    } catch (err) {
-      console.log(err);
-      res.redirect("/admin/staff");
-    }
-  },
+  // deleteStaff: async (req, res) => {
+  //   try {
+  //     await Staff.deleteOne({ _id: req.params.id })
+  //     console.log("staff deleted");
+  //     res.redirect("/admin/staff")
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.redirect("/admin/staff");
+  //   }
+  // },
 
   // ADMIN --> TASKS controller
   getOngoingTasks: async (req, res) => {

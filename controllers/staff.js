@@ -52,7 +52,7 @@ module.exports = {
   },
 
   createTask: async (req, res) => {
-    const tasks = await Task.find({ completedBy: req.user.id }).sort({ createdAt: "asc" });
+    const tasks = await Task.find({ completedBy: req.user.id, completed: false }).sort({ createdAt: "asc" });
     try {
       await Task.create({
         title: req.body.title,
@@ -65,7 +65,7 @@ module.exports = {
         adminId: req.user.adminId
       })
       console.log('Task has been added!')
-      res.render('staffMainPage.ejs', { success_msg: 'Task has been added!', user: req.user, tasks: tasks })
+      res.render('staffMainPage', { success_msg: 'Task has been added!', user: req.user, tasks: tasks })
     } catch (err) {
       console.log(err)
     }

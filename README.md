@@ -19,9 +19,7 @@ While building this app I understood and learned the importance of proper data m
 
 ## Screenshots:
 
-![Screenshot 2023-01-26 093924](https://user-images.githubusercontent.com/96948675/214792112-3032017e-9dc8-4b35-81e0-0933582c5950.png)
-![Screenshot 2023-01-26 093853](https://user-images.githubusercontent.com/96948675/214792119-36a9e774-ce05-4c30-b969-20f37fcb5375.png)
-![Screenshot 2023-01-26 093952](https://user-images.githubusercontent.com/96948675/214792123-bd957c91-0f65-4ab5-931c-0ab9f0ccf0de.png)
+![Screenshot 2023-01-26 093924](https://user-images.githubusercontent.com/96948675/214792112-3032017e-9dc8-4b35-81e0-0933582c5950.png) | ![Screenshot 2023-01-26 093853](https://user-images.githubusercontent.com/96948675/214792119-36a9e774-ce05-4c30-b969-20f37fcb5375.png) | ![Screenshot 2023-01-26 093952](https://user-images.githubusercontent.com/96948675/214792123-bd957c91-0f65-4ab5-931c-0ab9f0ccf0de.png)
 
 
 

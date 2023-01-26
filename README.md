@@ -4,7 +4,7 @@ HotelFixIt is a fullstack application that streamlines task management for hotel
 
 ## How It's Made:
 
-**Tech used:** HTML, CSS, JavaScript, Node.js, EJS, Express
+**Tech used:** HTML, CSS, JavaScript, Node.js, EJS, Express, Tailwind
 
 
 App is built using a combination of frontend and backend technologies. On the frontend, the app is created using HTML, CSS, JavaScript, and the Tailwind CSS framework for styling. This combination of technologies allows for a responsive, user-friendly interface that is easy to navigate.

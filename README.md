@@ -2,6 +2,8 @@
 
 HotelFixIt is a fullstack application that streamlines task management for hotels. The app allows managers and administrators to gather tasks in one central location and delegate them to specific departments. Staff members can log into their account to view their assigned tasks and mark them as completed. The manager can also see which tasks have been completed in real-time, providing oversight and improving efficiency. This app allows hotels to improve communication, organization, and productivity, resulting in a better experience for both staff and guests.
 
+Link: https://hotelfixit.onrender.com
+
 ## How It's Made:
 
 **Tech used:** HTML, CSS, JavaScript, Node.js, EJS, Express, Tailwind

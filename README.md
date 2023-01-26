@@ -19,7 +19,7 @@ While building this app I understood and learned the importance of proper data m
 
 ## Screenshots:
 
-<div style="display:inline-block;">
+<div align="center">
   <img src="https://user-images.githubusercontent.com/96948675/214792112-3032017e-9dc8-4b35-81e0-0933582c5950.png" width="200" height="200">
   <img src="https://user-images.githubusercontent.com/96948675/214792119-36a9e774-ce05-4c30-b969-20f37fcb5375.png" width="200" height="200">
   <img src="https://user-images.githubusercontent.com/96948675/214792123-bd957c91-0f65-4ab5-931c-0ab9f0ccf0de.png" width="200" height="200">
